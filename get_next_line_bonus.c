@@ -59,7 +59,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	n_line = ft_strdup("");
 	if (!n_line)
-		return (free(n_line), NULL);
+		return (NULL);
 	bytes_read = 1;
 	while (bytes_read)
 	{
