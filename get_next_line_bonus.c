@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbedouan <nbedouan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/14 18:55:44 by nbedouan          #+#    #+#             */
-/*   Updated: 2024/12/14 19:25:59 by nbedouan         ###   ########.fr       */
+/*   Created: 2024/12/18 03:11:25 by nbedouan          #+#    #+#             */
+/*   Updated: 2024/12/18 04:15:08 by nbedouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static void	cleaner(char *str)
 {
@@ -51,7 +51,7 @@ char	*join_read(char *to_read, char *n_line, int *bytes_read, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	to_read[BUFFER_SIZE + 1];
+	static char	to_read[fd][BUFFER_SIZE + 1];
 	char		*n_line;
 	int			bytes_read;
 
@@ -63,13 +63,13 @@ char	*get_next_line(int fd)
 	bytes_read = 1;
 	while (bytes_read)
 	{
-		n_line = join_read(to_read, n_line, &bytes_read, fd);
+		n_line = join_read(to_read[fd], n_line, &bytes_read, fd);
 		if (!n_line)
 			return (NULL);
 		if (ft_strchr(n_line, '\n'))
 			break ;
 	}
-	cleaner(to_read);
+	cleaner(to_read[fd]);
 	if (n_line && n_line[0] == 0)
 		return (free(n_line), NULL);
 	return (n_line);
