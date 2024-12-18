@@ -36,7 +36,7 @@ char	*join_read(char *to_read, char *n_line, int *bytes_read, int fd)
 {
 	n_line = ft_strjoin(n_line, to_read);
 	if (!n_line)
-		return (free(n_line), NULL);
+		return (NULL);
 	if (ft_strchr(n_line, '\n'))
 		return (n_line);
 	*bytes_read = read(fd, to_read, BUFFER_SIZE);

@@ -65,7 +65,10 @@ char	*ft_strjoin(char *s1, char *s2)
 	len1 = ft_strlen(s1);
 	res = malloc(sizeof(char) * (len1 + len2 + 1));
 	if (!res)
+	{
+		free(s1);
 		return (NULL);
+	}
 	ft_strlcpy(res, s1, (len1 + 1));
 	free(s1);
 	ft_strlcpy(res + len1, s2, (len2 + 1));
