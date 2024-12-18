@@ -21,7 +21,6 @@
 # endif
 
 size_t			ft_strlcpy(char *dest, const char *src, size_t size);
-size_t			ft_strlcpy(char *dest, const char *src, size_t size);
 size_t			ft_strlen(const char *str);
 char			*get_next_line(int fd);
 char			*ft_strdup(char *s);
