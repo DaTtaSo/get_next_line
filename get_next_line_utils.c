@@ -10,98 +10,92 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	void	*ptr;
-	size_t	final_size;
+#include "get_next_line.h"
 
-	if (size && nmemb > SIZE_MAX / size)
-		return (NULL);
-	final_size = nmemb * size;
-	ptr = malloc(final_size);
-	if (!ptr)
-		return (NULL);
-	ft_bzero(ptr, final_size);
-	return (ptr);
-}
-
-void	ft_bzero(void *s)
+void	ft_bzero(char *str)
 {
 	size_t	i;
 
 	i = 0;
-	while (s[i])
+	while (str[i])
 	{
-		*str = 0;
-		str++;
+		str[i] = 0;
+		i++;
 	}
 }
 
-char	*ft_strdup(const char *s)
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strdup(char *str)
 {
 	char	*dup;
-	int		s_len;
+	size_t	s_len;
+	size_t	i;
 
-	s_len = ft_strlen(s);
+	s_len = 0;
+	while (str[s_len] != '\n' && str[s_len] != 0)
+		s_len++;
+	if (str[s_len] == '\n')
+		s_len++;
 	dup = malloc((s_len + 1) * sizeof(char));
-	if (!dup)
-		return (NULL);
-	dup[s_len] = 0;
-	while (s_len >= 0)
+	if (dup == NULL)
+		return (dup);
+	i = 0;
+	while (i < s_len)
 	{
-		dup[s_len] = s[s_len];
-		s_len--;
+		dup[i] = str[i];
+		i++;
 	}
+	dup[i] = 0;
 	return (dup);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*res;
 	size_t	len1;
 	size_t	len2;
 
+	len1 = 0;
+	len2 = 0;
 	if (!s1 || !s2)
 		return (NULL);
+	while (s2[len2] != '\n' && s2[len2] != 0)
+		len2++;
+	if (s2[len2] == '\n')
+		len2++;
 	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
 	res = malloc(sizeof(char) * (len1 + len2 + 1));
 	if (!res)
 		return (NULL);
 	ft_strlcpy(res, s1, (len1 + 1));
+	free(s1);
 	ft_strlcpy(res + len1, s2, (len2 + 1));
 	return (res);
 }
 
-char	*ft_strchr(const char *s, int c)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	while (*s)
+	size_t	i;
+
+	if (size == 0)
+		return (ft_strlen(src));
+	i = 0;
+	while (src[i] && i < (size - 1))
 	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
+		dest[i] = src[i];
+		i++;
 	}
-	if (*s == (char)c)
-		return ((char *)s);
-	return (NULL);
-}
-
-
-void	*ft_memmove(void *dest, const void *src, size_t n)
-{
-	unsigned char		*dest_data;
-	unsigned const char	*src_data;
-
-	if (!dest && !src)
-		return (NULL);
-	if (src > dest)
-		dest = ft_memcpy(dest, src, n);
-	else
-	{
-		dest_data = (unsigned char *) dest;
-		src_data = (unsigned const char *) src;
-		while (n-- > 0)
-			dest_data[n] = src_data[n];
-	}
-	return (dest);
+	dest[i] = '\0';
+	return (ft_strlen(src));
 }
