@@ -51,7 +51,7 @@ char	*join_read(char *to_read, char *n_line, int *bytes_read, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	to_read[fd][BUFFER_SIZE + 1];
+	static char	to_read[1024][BUFFER_SIZE + 1];
 	char		*n_line;
 	int			bytes_read;
 
