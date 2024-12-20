@@ -32,7 +32,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*join_read(char *to_read, char *n_line, int *bytes_read, int fd)
+static char	*join_read(char *to_read, char *n_line, int *bytes_read, int fd)
 {
 	n_line = ft_strjoin(n_line, to_read);
 	if (!n_line)
